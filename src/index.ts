@@ -2,6 +2,8 @@ import express from 'express';
 import routes from './routes/index';
 import cors from 'cors';
 
+const PORT = 3000
+
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -10,4 +12,6 @@ app.use(cors());
 
 app.use(routes);
 
-app.listen(process.env.PORT, () => console.log(`Listening to port ${process.env.PORT}`));
+
+
+app.listen(PORT, () => console.log(`Listening to port ${PORT}`));

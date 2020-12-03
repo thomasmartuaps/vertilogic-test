@@ -5,6 +5,9 @@
   "repository": "https://github.com/thomasmartuaps/vertilogic-test.git",
   "author": "thomasmartuaps <thomasmartuaps@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.ts"
+  },
   "dependencies": {
     "@prisma/client": "2.12.1",
     "cors": "^2.8.5",
@@ -13,6 +16,7 @@
   },
   "devDependencies": {
     "@prisma/cli": "2.12.1",
+    "@types/cors": "^2.8.8",
     "@types/express": "^4.17.9",
     "@types/node": "^14.14.10",
     "ts-node": "^9.1.0",

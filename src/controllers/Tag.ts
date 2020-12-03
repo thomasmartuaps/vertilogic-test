@@ -2,26 +2,22 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-interface Restaurant {
-  name: string;
-};
-
 const unhandledErrorMsg = 'Unhandled error! Check references and handle this error accordingly.';
 
-class Vendor {
+class Tag {
 
-  // create function made in 15 minutes
-  static async create (req, res) {
-    const { body }: { body: Restaurant } = req;
-    const result = await prisma.vendor.create({
+  // create tag function written in 5 minutes
+  static async create(req, res) {
+    const { body } = req;
+    const result = await prisma.tag.create({
       data: {
-        name: body.name
+        title: body.title
       }
     }).then((res) => {
       return {
-        status: 200,
-        vendor: res,
-        message: 'New vendor created!'
+        status: 201,
+        tag: res,
+        message: "New Tag added."
       }
     }).catch((e) => {
       if (e.code === 'P2002') {
@@ -39,18 +35,17 @@ class Vendor {
         }
       }
     })
-
     return res.status(result.status).json(result);
   }
 
-  // read function made in 5 minutes
+  // read function written in 5 minutes
   static async read (req, res) {
-    const result = await prisma.vendor.findMany()
+    const result = await prisma.tag.findMany()
       .then((res) => {
         return {
           status: 200,
           vendors: res,
-          message: "Vendors found."
+          message: "Tags found."
         }
       })
       .catch((e) => {
@@ -64,4 +59,4 @@ class Vendor {
   }
 }
 
-export default Vendor
+export default Tag;
