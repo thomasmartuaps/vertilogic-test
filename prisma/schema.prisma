@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Dish {
+  id        Int      @id @default(autoincrement())
+  menuname  String
+  createdAt DateTime @default(now())
+  vendorId  Int
+  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+  order     Order[]
+}
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  specialreq String?
+  dishId     Int
+  dish       Dish     @relation(fields: [dishId], references: [id])
+}
+
+model Vendor {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  menu Dish[]
+}

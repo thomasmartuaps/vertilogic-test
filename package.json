@@ -1,0 +1,21 @@
+{
+  "name": "vertilogic-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/thomasmartuaps/vertilogic-test.git",
+  "author": "thomasmartuaps <thomasmartuaps@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "2.12.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.12.1",
+    "@types/express": "^4.17.9",
+    "@types/node": "^14.14.10",
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2"
+  }
+}
