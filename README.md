@@ -15,30 +15,30 @@ I use Prisma as the ORM for this backend application, which might not be familia
 <br>
 <br>
 
-POST "/vendor" => Add new vendor
+**POST "/vendor"** => Add new vendor
 **body:**
 
 ```JSON
 name: string
 ```
 
-GET "/vendor" => get all vendor
-GET "/vendor?tag[]=tagname&tag[]=secondtagname" => get all vendor, with query filter
-GET "/vendor/:restaurantname" => retrieving dish for specific restaurant
-PUT "/vendor/:id" => update vendor
-DELETE "/vendor/:id" => delete vendor
+**GET "/vendor"** => get all vendor
+**GET "/vendor?tag[]=tagname&tag[]=secondtagname"** => get all vendor, with query filter
+**GET "/vendor/:restaurantname"** => retrieving dish for specific restaurant
+**PUT "/vendor/:id"** => update vendor
+**DELETE "/vendor/:id"** => delete vendor
 <br>
-POST "/tag" => Add new tag
+**POST "/tag"** => Add new tag
 **body:**
 
 ```JSON
 title: string
 ```
 
-GET "/tag" => get all tags
-GET "/tag/:name" => find restaurants based on a tag, if querying is not possible
+**GET "/tag"** => get all tags
+**GET "/tag/:name"** => find restaurants based on a tag, if querying is not possible
 <br>
-POST "/vendortags" => add tag to vendor
+**POST "/vendortags"** => add tag to vendor
 **body:** 
 
 ```JSON
@@ -46,15 +46,19 @@ vendorId: number,
 tagId: number
 ```
 
-POST  "/dish" => add new dish"
+<br>
+**POST  "/dish"** => add new dish
 **body:** 
 
-```JSON
+```json
 menuname: string,
 vendorId: number
 ```
 
-POST "/order" => add new order"
+
+<br>
+**
+**POST "/order"** => add new order
 **body:** 
 
 ```JSON
