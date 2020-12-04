@@ -11,6 +11,7 @@ I use Prisma as the ORM for this backend application, which might not be familia
 7. Run the terminal command yarn prisma introspect, then yarn prisma generate (More info on this, look up the primsa tutorial.)
 8. You should be able to start the backend using the command yarn dev from the terminal
 <br>
+
 **API Endpoints:**
 <br>
 
@@ -27,6 +28,7 @@ name: string
 **PUT "/vendor/:id"** => update vendor<br>
 **DELETE "/vendor/:id"** => delete vendor<br>
 <br>
+
 **POST "/tag"** => Add new tag<br>
 **body:**
 
@@ -37,6 +39,7 @@ title: string
 **GET "/tag"** => get all tags<br>
 **GET "/tag/:name"** => find restaurants based on a tag, if querying is not possible<br>
 <br>
+
 **POST "/vendortags"** => add tag to vendor<br>
 **body:** 
 
@@ -46,6 +49,7 @@ tagId: number
 ```
 
 <br><br>
+
 **POST  "/dish"** => add new dish<br>
 **body:** 
 
@@ -56,7 +60,7 @@ vendorId: number
 
 <br>
 <br>
-**
+
 **POST "/order"** => add new order<br>
 **body:** 
 
