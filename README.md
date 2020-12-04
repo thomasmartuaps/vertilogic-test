@@ -10,9 +10,8 @@ I use Prisma as the ORM for this backend application, which might not be familia
 6. Run the schema.sql script file in the root folder using from psql shell using the command \i 'the exact location of the schema.sql file'
 7. Run the terminal command yarn prisma introspect, then yarn prisma generate (More info on this, look up the primsa tutorial.)
 8. You should be able to start the backend using the command yarn dev from the terminal
-
-**API Endpoints:**
 <br>
+**API Endpoints:**
 <br>
 
 **POST "/vendor"** => Add new vendor
