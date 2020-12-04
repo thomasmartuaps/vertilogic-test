@@ -47,7 +47,11 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   const result = await prisma.tag.findMany({
     include: {
-      vendors: {}
+      vendors: {
+        include: {
+          vendor: true
+        }
+      }
     }
   })
     .then((res) => {

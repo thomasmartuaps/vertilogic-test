@@ -44,40 +44,93 @@ router.post('/', async (req, res) => {
   return res.status(result.status).json(result);
 });
 
-// read function made in 5 minutes
+// read function made in 5 minutes + 20 minutes debugging for include
 router.get('/', async (req, res) => {
-  const result = await prisma.vendor.findMany({
-    include: {
-      tags: {
-        include: {
-          tag: true
-        }
-      },
-      menu: {
-        include: {
-          order: true
-        }
-      }
-    }
-  })
-    .then((res) => {
-      return {
-        status: 200,
-        vendors: res,
-        message: "Vendors found."
-      }
-    })
-    .catch((e) => {
-      return {
-        status: 500,
-        message: unhandledErrorMsg
-      }
-    })
+  const { query }: { query: any } = req;
+  const tags = query.tag;
+  if (tags) {
+    let orArray: any[] = [];
 
-  return res.status(result.status).json(result);
+    const mapperPromise = new Promise (() => {
+      console.log(tags)
+      console.log(orArray)
+      tags.map((tag: string) => {
+        orArray.push({
+          tag: {
+            title: tag
+          }
+        })
+      })
+      console.log(orArray, 'mapped')
+    }) 
+
+    const result = await mapperPromise
+      .then(async (res) => {
+        console.log('lewat then pertama')
+        return await prisma.vendor.findMany({
+        include: {
+          tags: {
+            where: {
+              OR: orArray
+            }
+          },
+          menu: true
+        }
+      })
+    })
+      .then((res) => {
+        return {
+          status: 200,
+          vendors: res,
+          message: "Vendors found according to query."
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+        return {
+          status: 500,
+          error: e,
+          message: unhandledErrorMsg
+        }
+      })
+  
+    return res.status(result.status).json(result);
+  } else {
+    const result = await prisma.vendor.findMany({
+      include: {
+        tags: {
+          include: {
+            tag: true
+          }
+        },
+        menu: true
+      }
+    })
+      .then((res) => {
+        return {
+          status: 200,
+          vendors: res,
+          message: "Vendors found."
+        }
+      })
+      .catch((e) => {
+        return {
+          status: 500,
+          message: unhandledErrorMsg
+        }
+      })
+
+    return res.status(200).json(result)
+  }
 });
 
+router.get('/test', async (req, res) => {
+  const { query } = req;
+  console.log(query);
+  return res.status(200).json(query);
+})
 
+// read function written in 5
 router.get('/:id', async (req, res) => {
   const result = await prisma.vendor.findUnique({
     where: {
@@ -100,7 +153,7 @@ router.get('/:id', async (req, res) => {
       return {
         status: 200,
         vendor: res,
-        message: "Vendors found."
+        message: "Vendor found."
       }
     })
     .catch((e) => {
@@ -112,6 +165,54 @@ router.get('/:id', async (req, res) => {
 
   return res.status(result.status).json(result);
 });
+
+
+// ENDPOINT FOR RETRIEVING DISHES OF SPECIFIC RESTAURANT
+// read function written in 5
+router.get('/:name', async (req, res) => {
+  const result = await prisma.vendor.findUnique({
+    where: {
+      name: req.params.name
+    },
+    include: {
+      tags: {
+        include: {
+          tag: true
+        }
+      },
+      menu: {
+        include: {
+          order: true
+        }
+      }
+    }
+  })
+    .then((res) => {
+      if (res) {
+        return {
+          status: 200,
+          vendor: res.name,
+          menu: res.menu,
+          message: "Vendor found, retrieved their dishes."
+        }
+      }
+      else {
+        return {
+          status: 404,
+          message: "No vendor with that name."
+        }
+      }
+    })
+    .catch((e) => {
+      return {
+        status: 500,
+        message: unhandledErrorMsg
+      }
+    })
+
+  return res.status(result.status).json(result);
+});
+
 router.put('/:id');
 router.delete('/:id');
 
