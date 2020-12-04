@@ -22,23 +22,23 @@ I use Prisma as the ORM for this backend application, which might not be familia
 name: string
 ```
 
-**GET "/vendor"** => get all vendor
-**GET "/vendor?tag[]=tagname&tag[]=secondtagname"** => get all vendor, with query filter
-**GET "/vendor/:restaurantname"** => retrieving dish for specific restaurant
-**PUT "/vendor/:id"** => update vendor
-**DELETE "/vendor/:id"** => delete vendor
+**GET "/vendor"** => get all vendor<br>
+**GET "/vendor?tag[]=tagname&tag[]=secondtagname"** => get all vendor, with query filter<br>
+**GET "/vendor/:restaurantname"** => retrieving dish for specific restaurant<br>
+**PUT "/vendor/:id"** => update vendor<br>
+**DELETE "/vendor/:id"** => delete vendor<br>
 <br>
-**POST "/tag"** => Add new tag
+**POST "/tag"** => Add new tag<br>
 **body:**
 
 ```JSON
 title: string
 ```
 
-**GET "/tag"** => get all tags
-**GET "/tag/:name"** => find restaurants based on a tag, if querying is not possible
+**GET "/tag"** => get all tags<br>
+**GET "/tag/:name"** => find restaurants based on a tag, if querying is not possible<br>
 <br>
-**POST "/vendortags"** => add tag to vendor
+**POST "/vendortags"** => add tag to vendor<br>
 **body:** 
 
 ```JSON
@@ -46,8 +46,8 @@ vendorId: number,
 tagId: number
 ```
 
-<br>
-**POST  "/dish"** => add new dish
+<br><br>
+**POST  "/dish"** => add new dish<br>
 **body:** 
 
 ```json
@@ -55,10 +55,10 @@ menuname: string,
 vendorId: number
 ```
 
-
+<br>
 <br>
 **
-**POST "/order"** => add new order
+**POST "/order"** => add new order<br>
 **body:** 
 
 ```JSON
