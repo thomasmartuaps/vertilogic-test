@@ -44,14 +44,16 @@ router.post('/', async (req, res) => {
   return res.status(result.status).json(result);
 });
 
+// Basic READ endpoint + Querying endpoint
 // read function made in 5 minutes + 20 minutes debugging for include
+// + 1 hour for querying
 router.get('/', async (req, res) => {
   const { query }: { query: any } = req;
   const tags = query.tag;
   if (tags) {
     let orArray: any[] = [];
 
-    const mapperPromise = new Promise (() => {
+    const mapperPromise = new Promise ((resolve, reject) => {
       console.log(tags)
       console.log(orArray)
       tags.map((tag: string) => {
@@ -62,6 +64,7 @@ router.get('/', async (req, res) => {
         })
       })
       console.log(orArray, 'mapped')
+      resolve('Go to prisma')
     }) 
 
     const result = await mapperPromise
@@ -213,7 +216,56 @@ router.get('/:name', async (req, res) => {
   return res.status(result.status).json(result);
 });
 
-router.put('/:id');
-router.delete('/:id');
+// Update function created in 15 minutes
+router.put('/:id', async (req, res) => {
+  const { body }: { body: Restaurant } = req;
+  const vendorId = Number(req.params.id);
+  const result = await prisma.vendor.update({
+    where: {
+      id: vendorId,
+    },
+    data: {
+      name: body.name
+    }
+  }).then((res) => {
+    return {
+      status: 200,
+      vendor: res,
+      message: 'Vendor updated.'
+    }
+  })
+    .catch((e) => {
+      return {
+        status: 500,
+        message: unhandledErrorMsg
+      }
+    })
+  
+    return res.status(result.status).json(result);
+});
+
+// 
+router.delete('/:id', async (req, res) => {
+  const vendorId = Number(req.params.id);
+  const result = await prisma.vendor.delete({
+    where: {
+      id: vendorId
+    }
+  }).then((res) => {
+    return {
+      status: 200,
+      vendor: res,
+      message: 'Vendor deleted.'
+    }
+  })
+    .catch((e) => {
+      return {
+        status: 500,
+        message: unhandledErrorMsg
+      }
+    })
+
+  return res.status(result.status).json(result);
+});
 
 export default router;

@@ -13,7 +13,7 @@ const unhandledErrorMsg = 'Unhandled error! Check references and handle this err
 
 const router = Router();
 
-// create function written in 30 minutes
+// create function written in 5 minutes
 router.post('/', async (req, res) => {
   const { body }: { body: OrderData } = req;
   const result = await prisma.order.create({

@@ -71,4 +71,44 @@ router.get('/', async (req, res) => {
   return res.status(result.status).json(res);
 });
 
+// read by title function written in 10 minutes
+router.get('/:title', async (req, res) => {
+  const result = await prisma.tag.findUnique({
+    where: {
+      title: req.params.title
+    },
+    include: {
+      vendors: {
+        include: {
+          vendor: true
+        }
+      }
+    }
+  })
+    .then((res) => {
+      if (res) {
+        return {
+          status: 200,
+          tag: res.title,
+          vendors: res.vendors,
+          message: "Vendor found based on tag."
+        }
+      }
+      else {
+        return {
+          status: 404,
+          message: "No vendor under such tag."
+        }
+      }
+    })
+    .catch((e) => {
+      return {
+        status: 500,
+        message: unhandledErrorMsg
+      }
+    })
+
+  return res.status(result.status).json(result);
+})
+
 export default router;
